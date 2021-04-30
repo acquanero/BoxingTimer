@@ -6,4 +6,5 @@
     <string name="label_button_add_time">+</string>
     <string name="label_button_rest_time">-</string>
     <string name="time_dots_separator">:</string>
+    <string name="label_button_start">Iniciar</string>
 </resources>
