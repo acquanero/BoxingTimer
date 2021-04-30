@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/label_round_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/label_round_duration"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_round_minutes_shwon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/start_minutes_of_round"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/label_dots_separators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/time_dots_separator"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/label_reound_seconds_shown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="22dp"
+            android:text="@string/start_seconds_of_round"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/button_add_time_to_round"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="@string/label_button_add_time"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button_rest_time_to_round"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_button_rest_time"
+            android:textSize="24sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
