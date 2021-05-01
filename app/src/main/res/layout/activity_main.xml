@@ -37,7 +37,6 @@
             android:id="@+id/label_dots_separators"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/time_dots_separator"
             android:textSize="30sp" />
 
