@@ -11,18 +11,25 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView round_seconds_txt;
     private TextView round_minutes_txt;
+    private TextView round_numbers_txt;
 
     int roundSeconds;
     int roundMinutes;
+    int roundNumbers;
 
     private Button buttonAddTime;
     private  Button buttonRestTime;
+
+    private Button buttonAddRounds;
+    private  Button buttonRestRounds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //buttons and labels for rounds time
         round_seconds_txt = findViewById(R.id.label_reound_seconds_shown);
         roundSeconds = Integer.parseInt(round_seconds_txt.getText().toString());
 
@@ -46,6 +53,33 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 restTimeToRound();
+
+            }
+        });
+
+        //buttons and label for round numbers
+
+        round_numbers_txt = findViewById(R.id.round_numbers);
+
+        roundNumbers = Integer.parseInt(round_numbers_txt.getText().toString());
+
+        buttonAddRounds = findViewById(R.id.button_add_rounds);
+        buttonRestRounds = findViewById(R.id.button_rest_rounds);
+
+        buttonAddRounds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                addNumberOfRounds();
+
+            }
+        });
+
+        buttonRestRounds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                restNumberOfRounds();
 
             }
         });
@@ -104,6 +138,27 @@ public class MainActivity extends AppCompatActivity {
                 round_minutes_txt.setText(String.valueOf(roundMinutes));
 
             }
+
+        }
+
+    }
+
+    private void addNumberOfRounds(){
+
+        roundNumbers = roundNumbers + 1;
+
+        round_numbers_txt.setText(String.valueOf(roundNumbers));
+
+
+    }
+
+    private  void restNumberOfRounds(){
+
+        if (roundNumbers > 1){
+
+            roundNumbers = roundNumbers - 1;
+
+            round_numbers_txt.setText(String.valueOf(roundNumbers));
 
         }
 
