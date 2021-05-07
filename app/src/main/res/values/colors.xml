@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="redbox">#BF1414</color>
+    <color name="greenbox">#4CAF50</color>
 </resources>

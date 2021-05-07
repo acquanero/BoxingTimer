@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">BoxingTimer</string>
     <string name="label_round_duration">Duración del Round</string>
-    <string name="initial_minutes_of_round">3</string>
-    <string name="initial_seconds_of_round">00</string>
+    <string name="initial_minutes_of_round">0</string>
+    <string name="initial_seconds_of_round">10</string>
     <string name="label_button_add_time">+</string>
     <string name="label_button_rest_time">-</string>
     <string name="time_dots_separator">:</string>
@@ -14,4 +14,5 @@
     <string name="initial_rest_time_seconds">00</string>
     <string name="label_round">Round</string>
     <string name="label_round_counter">1/0</string>
+    <string name="label_rest">Descanso</string>
 </resources>
