@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".BoxingClockActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/mybox"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/label_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_round"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/label_round_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_round_counter"
+            android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/label_round_minutes_shown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/initial_minutes_of_round"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/label_dots_separators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_dots_separator"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/label_round_seconds_shown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/initial_seconds_of_round"
+            android:textSize="60sp" />
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

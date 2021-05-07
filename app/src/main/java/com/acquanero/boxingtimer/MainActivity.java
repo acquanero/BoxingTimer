@@ -2,6 +2,7 @@ package com.acquanero.boxingtimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private  Button buttonRestRounds;
 
     private Button buttonAddTimeToRest;
-    private  Button buttonSubtractTimeToRest;
+    private Button buttonSubtractTimeToRest;
+    private Button buttonStartTimer;
 
 
     @Override
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         buttonAddTimeToRound = findViewById(R.id.button_add_time_to_round);
         buttonSubtractTimeToRound = findViewById(R.id.button_subtract_time_to_round);
 
+        buttonStartTimer = findViewById(R.id.button_start_timer);
+
         buttonAddTimeToRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (String.valueOf(roundSeconds).length() == 1){
 
-                    round_seconds_txt.setText("0" + String.valueOf(roundSeconds));
+                    round_seconds_txt.setText("0" + roundSeconds);
 
                 } else {
 
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (String.valueOf(roundSeconds).length() == 1){
 
-                    round_seconds_txt.setText("0" + String.valueOf(roundSeconds));
+                    round_seconds_txt.setText("0" + roundSeconds);
 
                 } else {
 
@@ -150,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (String.valueOf(restSeconds).length() == 1){
 
-                    rest_seconds_txt.setText("0" + String.valueOf(restSeconds));
+                    rest_seconds_txt.setText("0" + restSeconds);
 
                 } else {
 
@@ -182,6 +186,23 @@ public class MainActivity extends AppCompatActivity {
                     rest_seconds_txt.setText(String.valueOf(restSeconds));
 
                 }
+
+            }
+        });
+
+        buttonStartTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent goToTimer = new Intent(getApplicationContext(), BoxingClockActivity.class);
+
+                goToTimer.putExtra("roundNumbers", roundNumbers);
+                goToTimer.putExtra("roundMinutes", roundMinutes);
+                goToTimer.putExtra("roundSeconds", roundSeconds);
+                goToTimer.putExtra("restMinutes", restMinutes);
+                goToTimer.putExtra("restSeconds", restSeconds);
+
+                startActivity(goToTimer);
 
             }
         });
