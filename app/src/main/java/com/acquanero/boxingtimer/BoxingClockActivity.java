@@ -2,11 +2,10 @@ package com.acquanero.boxingtimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
-
-import java.util.Timer;
 
 public class BoxingClockActivity extends AppCompatActivity {
 
@@ -17,6 +16,19 @@ public class BoxingClockActivity extends AppCompatActivity {
     int restMinutes;
 
     int counter;
+
+    int totalRoundTimeInMilisec;
+    int totalRestTimeInMilisec;
+    int totalTimeMilisec;
+
+    int counterToSwitchFromRoundToRest;
+
+    TextView roundCounter;
+    TextView roundMinutesTxt;
+    TextView roundSecondsTxt;
+
+    TextView restMinutesTxt;
+    TextView restSecondsTxt;
 
     Bundle data;
 
@@ -33,19 +45,25 @@ public class BoxingClockActivity extends AppCompatActivity {
         restSeconds = data.getInt("restSeconds");
         restMinutes = data.getInt("restMinutes");
 
+        counterToSwitchFromRoundToRest = 0;
+
         counter = 1;
 
-        int totalTimeInMilisec = (roundSeconds * 1000) + ((roundMinutes * 60) * 1000);
+        totalRoundTimeInMilisec = (roundSeconds * 1000) + ((roundMinutes * 60) * 1000);
+        totalRestTimeInMilisec = (restSeconds * 1000) + ((restMinutes * 60) * 1000);
+        totalTimeMilisec = totalRoundTimeInMilisec + totalRestTimeInMilisec + 2000;
 
-        TextView roundCounter = findViewById(R.id.label_round_counter);
+        //Graphical compenents of round time and counter
+
+        roundCounter = findViewById(R.id.label_round_counter);
         roundCounter.setText("1/" + roundNumbers);
 
-        TextView roundMinutesTxt = findViewById(R.id.label_round_minutes_shown);
+        roundMinutesTxt = findViewById(R.id.label_round_minutes_shown);
         roundMinutesTxt.setText(String.valueOf(roundMinutes));
 
-        TextView roundSecondsTxt = findViewById(R.id.label_round_seconds_shown);
+        roundSecondsTxt = findViewById(R.id.label_round_seconds_shown);
 
-        if (String.valueOf(roundSeconds).length() == 1){
+        if (String.valueOf(roundSeconds).length() == 1) {
 
             roundSecondsTxt.setText("0" + roundSeconds);
 
@@ -55,47 +73,98 @@ public class BoxingClockActivity extends AppCompatActivity {
 
         }
 
-        CountDownTimer miTimer = new CountDownTimer(totalTimeInMilisec, 1000) {
+        //Graphical components of rest timer
+
+        restMinutesTxt = findViewById(R.id.label_rest_minutes_shown);
+        restMinutesTxt.setText(String.valueOf(restMinutes));
+        restSecondsTxt = findViewById(R.id.label_rest_seconds_shown);
+
+        CountDownTimer miTimer = new CountDownTimer(totalTimeMilisec, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                if (roundSeconds == 0){
+                System.out.println("round milisec: " + totalRoundTimeInMilisec);
+                System.out.println("switch time milisec: " + counterToSwitchFromRoundToRest);
 
-                    if (roundMinutes > 0){
+                System.out.println("restseconds: " + restSeconds);
+                if (counterToSwitchFromRoundToRest <= totalRoundTimeInMilisec) {
 
-                        roundMinutes = roundMinutes - 1;
-                        roundSeconds = 60;
+                    if (roundSeconds == 0){
 
-                        if (String.valueOf(roundSeconds).length() == 1){
+                        if (roundMinutes > 0){
 
-                            roundSecondsTxt.setText("0" + roundSeconds);
+                            counterToSwitchFromRoundToRest = counterToSwitchFromRoundToRest + 1000;
+                            roundMinutes = roundMinutes - 1;
+                            roundSeconds = 59;
 
-                        } else {
+                            roundMinutesTxt.setText(String.valueOf(roundMinutes));
 
-                            roundSecondsTxt.setText(String.valueOf(roundSeconds));
+                            if (String.valueOf(roundSeconds).length() == 1){
+
+                                roundSecondsTxt.setText("0" + roundSeconds);
+
+                            } else {
+
+                                roundSecondsTxt.setText(String.valueOf(roundSeconds));
+
+                            }
 
                         }
 
-                        roundMinutesTxt.setText(String.valueOf(roundMinutes));
-
-                    } else {
-
-                        this.cancel();
 
                     }
 
+                    if (String.valueOf(roundSeconds).length() == 1){
 
-                }
+                        roundSecondsTxt.setText("0" + roundSeconds);
 
-                roundSeconds = roundSeconds - 1;
+                    } else {
 
-                if (String.valueOf(roundSeconds).length() == 1){
+                        roundSecondsTxt.setText(String.valueOf(roundSeconds));
 
-                    roundSecondsTxt.setText("0" + roundSeconds);
+                    }
+
+                    counterToSwitchFromRoundToRest = counterToSwitchFromRoundToRest + 1000;
+                    roundSeconds = roundSeconds - 1;
+
 
                 } else {
 
-                    roundSecondsTxt.setText(String.valueOf(roundSeconds));
+                    if (restSeconds == 0){
+
+                        if (restMinutes > 0){
+
+                            restMinutes = restMinutes - 1;
+                            restSeconds = 59;
+
+                            if (String.valueOf(restSeconds).length() == 1){
+
+                                restSecondsTxt.setText("0" + restSeconds);
+
+                            } else {
+
+                                restSecondsTxt.setText(String.valueOf(restSeconds));
+
+                            }
+
+                            restMinutesTxt.setText(String.valueOf(restMinutes));
+
+                        }
+
+                    }
+
+                    if (String.valueOf(restSeconds).length() == 1){
+
+                        restSecondsTxt.setText("0" + restSeconds);
+
+                    } else {
+
+                        restSecondsTxt.setText(String.valueOf(restSeconds));
+
+                    }
+
+                    restSeconds = restSeconds - 1;
+
 
                 }
 
@@ -103,6 +172,8 @@ public class BoxingClockActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+
+                counterToSwitchFromRoundToRest = 0;
 
                 if (counter < roundNumbers) {
 
@@ -112,6 +183,9 @@ public class BoxingClockActivity extends AppCompatActivity {
 
                     roundSeconds = data.getInt("roundSeconds");
                     roundMinutes = data.getInt("roundMinutes");
+
+                    restSeconds = data.getInt("restSeconds");
+                    restMinutes = data.getInt("restMinutes");
 
                     this.start();
 

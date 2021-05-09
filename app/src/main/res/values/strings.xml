@@ -10,8 +10,8 @@
     <string name="label_number_of_rounds">Cantidad de Rounds</string>
     <string name="initial_round_numbers">12</string>
     <string name="label_rest_duration">Duración del descanso</string>
-    <string name="initial_rest_time_minutes">1</string>
-    <string name="initial_rest_time_seconds">00</string>
+    <string name="initial_rest_time_minutes">0</string>
+    <string name="initial_rest_time_seconds">10</string>
     <string name="label_round">Round</string>
     <string name="label_round_counter">1/0</string>
     <string name="label_rest">Descanso</string>
