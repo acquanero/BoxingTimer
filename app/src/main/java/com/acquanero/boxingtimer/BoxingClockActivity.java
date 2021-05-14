@@ -67,6 +67,8 @@ public class BoxingClockActivity extends AppCompatActivity {
 
         mysoundPlayer = MediaPlayer.create(this, R.raw.boxingbell);
 
+        mysoundPlayer.start();
+
         //Button stop
 
         buttonStop = findViewById(R.id.button_stop_time);
