@@ -2,9 +2,12 @@ package com.acquanero.boxingtimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class BoxingClockActivity extends AppCompatActivity {
@@ -30,12 +33,21 @@ public class BoxingClockActivity extends AppCompatActivity {
     TextView restMinutesTxt;
     TextView restSecondsTxt;
 
+    private ImageButton buttonStop;
+
+    private MediaPlayer mysoundPlayer;
+
+    private Boolean alreadyPlayed;
+
     Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boxing_clock);
+
+        //boolean variable to assure that the bell plays only one in every round
+        alreadyPlayed = false;
 
         data = getIntent().getExtras();
 
@@ -52,6 +64,24 @@ public class BoxingClockActivity extends AppCompatActivity {
         totalRoundTimeInMilisec = (roundSeconds * 1000) + ((roundMinutes * 60) * 1000);
         totalRestTimeInMilisec = (restSeconds * 1000) + ((restMinutes * 60) * 1000);
         totalTimeMilisec = totalRoundTimeInMilisec + totalRestTimeInMilisec + 2000;
+
+        mysoundPlayer = MediaPlayer.create(this, R.raw.boxingbell);
+
+        //Button stop
+
+        buttonStop = findViewById(R.id.button_stop_time);
+
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent goBack = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(goBack);
+                finish();
+
+
+            }
+        });
 
         //Graphical compenents of round time and counter
 
@@ -82,9 +112,6 @@ public class BoxingClockActivity extends AppCompatActivity {
         CountDownTimer miTimer = new CountDownTimer(totalTimeMilisec, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
-                System.out.println("round milisec: " + totalRoundTimeInMilisec);
-                System.out.println("switch time milisec: " + counterToSwitchFromRoundToRest);
 
                 System.out.println("restseconds: " + restSeconds);
                 if (counterToSwitchFromRoundToRest <= totalRoundTimeInMilisec) {
@@ -130,6 +157,13 @@ public class BoxingClockActivity extends AppCompatActivity {
 
                 } else {
 
+                    if (alreadyPlayed == false) {
+
+                        mysoundPlayer.start();
+                        alreadyPlayed = true;
+
+                    }
+
                     if (restSeconds == 0){
 
                         if (restMinutes > 0){
@@ -172,6 +206,10 @@ public class BoxingClockActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+
+                mysoundPlayer.start();
+
+                alreadyPlayed = false;
 
                 counterToSwitchFromRoundToRest = 0;
 
