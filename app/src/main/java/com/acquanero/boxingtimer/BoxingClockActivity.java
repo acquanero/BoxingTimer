@@ -3,9 +3,11 @@ package com.acquanero.boxingtimer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,6 +41,8 @@ public class BoxingClockActivity extends AppCompatActivity {
 
     private Boolean alreadyPlayed;
 
+    SharedPreferences dataDepot;
+
     Bundle data;
 
     @Override
@@ -49,13 +53,13 @@ public class BoxingClockActivity extends AppCompatActivity {
         //boolean variable to assure that the bell plays only one in every round
         alreadyPlayed = false;
 
-        data = getIntent().getExtras();
+        dataDepot = PreferenceManager.getDefaultSharedPreferences(this);
 
-        roundNumbers = data.getInt("roundNumbers");
-        roundSeconds = data.getInt("roundSeconds");
-        roundMinutes = data.getInt("roundMinutes");
-        restSeconds = data.getInt("restSeconds");
-        restMinutes = data.getInt("restMinutes");
+        roundNumbers = dataDepot.getInt("roundNumbers", 6);
+        roundSeconds = dataDepot.getInt("roundSeconds", 0);
+        roundMinutes = dataDepot.getInt("roundMinutes", 3);
+        restSeconds = dataDepot.getInt("restSeconds", 0);
+        restMinutes = dataDepot.getInt("restMinutes", 1);
 
         counterToSwitchFromRoundToRest = 0;
 
@@ -108,8 +112,18 @@ public class BoxingClockActivity extends AppCompatActivity {
         //Graphical components of rest timer
 
         restMinutesTxt = findViewById(R.id.label_rest_minutes_shown);
-        restMinutesTxt.setText(String.valueOf(restMinutes));
+        restMinutesTxt.setText(Integer.toString(restMinutes));
+
         restSecondsTxt = findViewById(R.id.label_rest_seconds_shown);
+        if (String.valueOf(restSeconds).length() == 1) {
+
+            restSecondsTxt.setText("0" + restSeconds);
+
+        } else {
+
+            restSecondsTxt.setText(String.valueOf(restSeconds));
+
+        }
 
         CountDownTimer miTimer = new CountDownTimer(totalTimeMilisec, 1000) {
             @Override
@@ -221,11 +235,11 @@ public class BoxingClockActivity extends AppCompatActivity {
 
                     roundCounter.setText(counter + "/" + roundNumbers);
 
-                    roundSeconds = data.getInt("roundSeconds");
-                    roundMinutes = data.getInt("roundMinutes");
+                    roundSeconds = dataDepot.getInt("roundSeconds", 0);
+                    roundMinutes = dataDepot.getInt("roundMinutes", 3);
 
-                    restSeconds = data.getInt("restSeconds");
-                    restMinutes = data.getInt("restMinutes");
+                    restSeconds = dataDepot.getInt("restSeconds", 0);
+                    restMinutes = dataDepot.getInt("restMinutes", 1);
 
                     this.start();
 
