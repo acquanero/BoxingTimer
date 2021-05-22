@@ -125,125 +125,14 @@ public class BoxingClockActivity extends AppCompatActivity {
 
         }
 
-        CountDownTimer miTimer = new CountDownTimer(totalTimeMilisec, 1000) {
+        CountDownTimer miTimer = new CountDownTimer(90000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
-                System.out.println("restseconds: " + restSeconds);
-                if (counterToSwitchFromRoundToRest <= totalRoundTimeInMilisec) {
-
-                    if (roundSeconds == 0){
-
-                        if (roundMinutes > 0){
-
-                            counterToSwitchFromRoundToRest = counterToSwitchFromRoundToRest + 1000;
-                            roundMinutes = roundMinutes - 1;
-                            roundSeconds = 59;
-
-                            roundMinutesTxt.setText(String.valueOf(roundMinutes));
-
-                            if (String.valueOf(roundSeconds).length() == 1){
-
-                                roundSecondsTxt.setText("0" + roundSeconds);
-
-                            } else {
-
-                                roundSecondsTxt.setText(String.valueOf(roundSeconds));
-
-                            }
-
-                        }
-
-
-                    }
-
-                    if (String.valueOf(roundSeconds).length() == 1){
-
-                        roundSecondsTxt.setText("0" + roundSeconds);
-
-                    } else {
-
-                        roundSecondsTxt.setText(String.valueOf(roundSeconds));
-
-                    }
-
-                    counterToSwitchFromRoundToRest = counterToSwitchFromRoundToRest + 1000;
-                    roundSeconds = roundSeconds - 1;
-
-
-                } else {
-
-                    if (alreadyPlayed == false) {
-
-                        mysoundPlayer.start();
-                        alreadyPlayed = true;
-
-                    }
-
-                    if (restSeconds == 0){
-
-                        if (restMinutes > 0){
-
-                            restMinutes = restMinutes - 1;
-                            restSeconds = 59;
-
-                            if (String.valueOf(restSeconds).length() == 1){
-
-                                restSecondsTxt.setText("0" + restSeconds);
-
-                            } else {
-
-                                restSecondsTxt.setText(String.valueOf(restSeconds));
-
-                            }
-
-                            restMinutesTxt.setText(String.valueOf(restMinutes));
-
-                        }
-
-                    }
-
-                    if (String.valueOf(restSeconds).length() == 1){
-
-                        restSecondsTxt.setText("0" + restSeconds);
-
-                    } else {
-
-                        restSecondsTxt.setText(String.valueOf(restSeconds));
-
-                    }
-
-                    restSeconds = restSeconds - 1;
-
-
-                }
 
             }
 
             @Override
             public void onFinish() {
-
-                mysoundPlayer.start();
-
-                alreadyPlayed = false;
-
-                counterToSwitchFromRoundToRest = 0;
-
-                if (counter < roundNumbers) {
-
-                    counter++;
-
-                    roundCounter.setText(counter + "/" + roundNumbers);
-
-                    roundSeconds = dataDepot.getInt("roundSeconds", 0);
-                    roundMinutes = dataDepot.getInt("roundMinutes", 3);
-
-                    restSeconds = dataDepot.getInt("restSeconds", 0);
-                    restMinutes = dataDepot.getInt("restMinutes", 1);
-
-                    this.start();
-
-                }
 
             }
         };
