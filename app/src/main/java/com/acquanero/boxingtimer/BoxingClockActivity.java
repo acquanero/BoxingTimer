@@ -240,8 +240,8 @@ public class BoxingClockActivity extends AppCompatActivity {
 
                 roundCounter++;
 
-                roundNumbers = dataDepot.getInt("roundNumbers", 6);
                 roundSeconds = dataDepot.getInt("roundSeconds", 0);
+                roundMinutes = dataDepot.getInt("roundMinutes", 3);
 
                 roundMinutesTxt.setText(String.valueOf(roundMinutes));
 
