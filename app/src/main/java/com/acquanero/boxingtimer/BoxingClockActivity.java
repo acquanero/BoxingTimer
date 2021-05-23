@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -24,7 +26,6 @@ public class BoxingClockActivity extends AppCompatActivity {
 
     int totalRoundTimeInMilisec;
     int totalRestTimeInMilisec;
-    int totalTimeMilisec;
 
     int counterToSwitchFromRoundToRest;
 
@@ -38,12 +39,9 @@ public class BoxingClockActivity extends AppCompatActivity {
     private ImageButton buttonStop;
 
     private MediaPlayer mysoundPlayer;
-
-    private Boolean alreadyPlayed;
+    private ToneGenerator tenSecondSound;
 
     SharedPreferences dataDepot;
-
-    Bundle data;
 
     CountDownTimer roundTimer;
     CountDownTimer restTimer;
@@ -52,9 +50,6 @@ public class BoxingClockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boxing_clock);
-
-        //boolean variable to assure that the bell plays only one in every round
-        alreadyPlayed = false;
 
         dataDepot = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -70,9 +65,9 @@ public class BoxingClockActivity extends AppCompatActivity {
 
         totalRoundTimeInMilisec = (roundSeconds * 1000) + ((roundMinutes * 60) * 1000);
         totalRestTimeInMilisec = (restSeconds * 1000) + ((restMinutes * 60) * 1000);
-        totalTimeMilisec = totalRoundTimeInMilisec + totalRestTimeInMilisec + 2000;
 
         mysoundPlayer = MediaPlayer.create(this, R.raw.boxingbell);
+        tenSecondSound = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
 
         mysoundPlayer.start();
 
@@ -228,6 +223,12 @@ public class BoxingClockActivity extends AppCompatActivity {
                 } else {
 
                     roundSecondsTxt.setText(String.valueOf(roundSeconds));
+
+                }
+
+                if (roundMinutes == 0 && (roundSeconds <= 10 && roundSeconds > 2)) {
+
+                    tenSecondSound.startTone(ToneGenerator.TONE_CDMA_PIP,ToneGenerator.MAX_VOLUME);
 
                 }
 
